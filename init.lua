@@ -82,6 +82,7 @@ vim.g.better_whitespace_filetypes_blacklist = { 'alpha', 'dashboard', 'diff', 'g
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
+vim.keymap.set('n', '<Esc><Esc>', '<cmd>NvimTreeClose<CR>')
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
@@ -105,6 +106,9 @@ vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left wind
 vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
+
+vim.keymap.set('n', 'gy', "<cmd>:redir! @+ | echon join([expand('%'),  line('.')], ':') | redir END<CR>",
+  { desc = "Yank File/Line" })
 
 vim.cmd [[
   function! ToggleWrap()
@@ -146,9 +150,9 @@ vim.keymap.set('n', '<leader>bn', "<cmd>enew<cr>",
   { desc = "[N]ew Buffer" })
 vim.keymap.set('n', '<leader>bp', "<cmd>:BufferLinePick<cr>",
   { desc = "[P]ick Buffer" })
-vim.keymap.set('n', '<leader>bj', "<cmd>:BufferLineCycleNext<cr>",
+vim.keymap.set('n', '<leader>j', "<cmd>:BufferLineCycleNext<cr>",
   { desc = "Next Buffer" })
-vim.keymap.set('n', '<leader>bk', "<cmd>:BufferLineCyclePrev<cr>",
+vim.keymap.set('n', '<leader>k', "<cmd>:BufferLineCyclePrev<cr>",
   { desc = "Previous Buffer" })
 
 vim.keymap.set('n', '<leader>lR', "<cmd>lua require('telescope.builtin').lsp_references<cr>",
@@ -172,8 +176,41 @@ vim.keymap.set('n', '<leader>lk', "<cmd>lua vim.diagnostic.goto_prev<cr>",
 vim.keymap.set('n', '<leader>lm', "<cmd>Mason<cr>",
   { desc = 'Mason' })
 
+vim.keymap.set('v', 'n', ":'<,'>MoveBlock(1)<cr>", { desc = 'Move [N]ext' })
+vim.keymap.set('v', 'p', ":'<,'>MoveBlock(-1)<cr>", { desc = 'Move [P]revious' })
+
 vim.keymap.set('n', '<leader>q', "<cmd>qa<cr>",
   { desc = '[Q]uit' })
+
+vim.cmd [[
+  nmap <silent> w <Plug>CamelCaseMotion_w
+  nmap <silent> b <Plug>CamelCaseMotion_b
+  nmap <silent> e <Plug>CamelCaseMotion_e
+  nmap <silent> ge <Plug>CamelCaseMotion_ge
+
+  omap <silent> iw <Plug>CamelCaseMotion_iw
+  xmap <silent> iw <Plug>CamelCaseMotion_iw
+  omap <silent> ib <Plug>CamelCaseMotion_ib
+  xmap <silent> ib <Plug>CamelCaseMotion_ib
+  omap <silent> ie <Plug>CamelCaseMotion_ie
+  xmap <silent> ie <Plug>CamelCaseMotion_ie
+
+  let g:surround_no_mappings = 1
+  nmap ds       <Plug>Dsurround
+  nmap cs       <Plug>Csurround
+  nmap cS       <Plug>CSurround
+  nmap ys       <Plug>Ysurround
+  nmap yS       <Plug>YSurround
+  nmap yss      <Plug>Yssurround
+  nmap ySs      <Plug>YSsurround
+  nmap ySS      <Plug>YSsurround
+  xmap gs       <Plug>VSurround
+  xmap gS       <Plug>VgSurround
+]]
+
+vim.cmd [[
+  let g:wildfire_objects = ["i>", "i'", 'i"', "i)", "i]", "i}", "ip", "it"]
+]]
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
@@ -262,9 +299,48 @@ require('lazy').setup({
   },
 
   {
+    "nvim-orgmode/orgmode.nvim",
+    config = function()
+      local orgmode = require('orgmode')
+      orgmode.setup({
+        org_blank_before_new_entry = {
+          heading = false,
+          plain_list_item = false,
+        },
+      })
+    end
+  },
+  {
     'akinsho/bufferline.nvim',
     init = function()
-      require('bufferline').setup()
+      require('bufferline').setup({
+        options = {
+          separator_style = "slant",
+          indicator = {
+            style = "underline",
+          },
+          offsets = {
+            {
+              filetype = "NvimTree",
+              text = "Explorer",
+              highlight = "PanelHeading",
+              padding = 1,
+            },
+            {
+              filetype = "DiffviewFiles",
+              text = "Diff View",
+              highlight = "PanelHeading",
+              padding = 1,
+            },
+            {
+              filetype = "lazy",
+              text = "Lazy",
+              highlight = "PanelHeading",
+              padding = 1,
+            },
+          },
+        },
+      })
     end,
     dependencies = 'nvim-tree/nvim-web-devicons'
   },
@@ -317,7 +393,7 @@ require('lazy').setup({
             ignore_list = {},
           },
           exclude = false,
-        }
+        },
       }
     end,
     keys = {
@@ -534,9 +610,9 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
       vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
       vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
-      vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
-      vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
-      vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
+      vim.keymap.set('n', '<leader>s.', builtin.resume, { desc = '[S]earch [R]esume' })
+      vim.keymap.set('n', '<leader>sr', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
+      vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find Existing Buffers' })
 
       -- Slightly advanced example of overriding default behavior and theme
       vim.keymap.set('n', '<leader>/', function()
@@ -545,7 +621,7 @@ require('lazy').setup({
           winblend = 10,
           previewer = false,
         })
-      end, { desc = '[/] Fuzzily search in current buffer' })
+      end, { desc = '[/] Fuzzily Search Current Buffer' })
 
       -- It's also possible to pass additional configuration options.
       --  See `:help telescope.builtin.live_grep()` for information about particular keys
@@ -686,7 +762,7 @@ require('lazy').setup({
           --
           -- This may be unwanted, since they displace some of your code
           if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
-            map('<leader>th', function()
+            map('<leader>lh', function()
               vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
             end, '[T]oggle Inlay [H]ints')
           end
