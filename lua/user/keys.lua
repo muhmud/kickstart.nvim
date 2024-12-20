@@ -66,10 +66,11 @@ vim.keymap.set(
 vim.keymap.set('n', '<leader>bx', '<cmd>:BufferLineCloseLeft<CR>:BufferLineCloseRight<cr>', { desc = 'Close All E[X]cept Current' })
 vim.keymap.set('n', '<leader>bl', '<cmd>Telescope buffers<cr>', { desc = 'Buffer [L]ist' })
 vim.keymap.set('n', '<leader>c', '<cmd>:bdelete!<cr>', { desc = '[C]lose Buffer' })
-vim.keymap.set('n', '<leader>bn', '<cmd>enew<cr>', { desc = '[N]ew Buffer' })
+vim.keymap.set('n', '<leader>n', '<cmd>enew<cr>', { desc = '[N]ew Buffer' })
 vim.keymap.set('n', '<leader>bp', '<cmd>:BufferLinePick<cr>', { desc = '[P]ick Buffer' })
 vim.keymap.set('n', '<leader>j', '<cmd>:BufferLineCycleNext<cr>', { desc = 'Next Buffer' })
 vim.keymap.set('n', '<leader>k', '<cmd>:BufferLineCyclePrev<cr>', { desc = 'Previous Buffer' })
+vim.keymap.set('n', '<leader>;', '<cmd>:Dashboard<cr>', { desc = 'Dashboard' })
 
 vim.keymap.set('n', '<leader>C', '<cmd>:e ~/.config/nvim/init.lua<cr>', { desc = 'Edit [C]onfig' })
 
