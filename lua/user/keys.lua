@@ -89,6 +89,8 @@ vim.keymap.set('v', 'p', ":'<,'>MoveBlock(-1)<cr>", { desc = 'Move [P]revious' }
 
 vim.keymap.set('n', '<leader>q', '<cmd>qa<cr>', { desc = '[Q]uit' })
 
+vim.keymap.set('n', 'ß', '<cmd>Telescope lsp_dynamic_workspace_symbols<cr>', { desc = 'Workspace Symbols' })
+
 vim.cmd [[
   nmap <silent> w <Plug>CamelCaseMotion_w
   nmap <silent> b <Plug>CamelCaseMotion_b
