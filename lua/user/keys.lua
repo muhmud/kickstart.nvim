@@ -12,21 +12,70 @@ else
   vim.keymap.set('i', '<M-BS>', '<C-w>')
 end
 
+require('legendary').setup {
+  keymaps = {
+    { '<C-=>', '<cmd>:call ZoomIn()<CR>', description = 'Zoom In' },
+    { '<C-->', '<cmd>:call ZoomOut()<CR>', description = 'Zoom Out' },
+    { '<C-+>', '<cmd>:call ZoomReset()<CR>', description = 'Zoom Reset' },
+    { '<leader>e', '<cmd>:NvimTreeFocus<CR>', description = '[E]xplorer' },
+    { '<leader><leader>', '<cmd>:Legendary<CR>', description = 'Legend' },
+    { '<Esc>', '<cmd>nohlsearch<CR>', description = 'Clear Search Highlights' },
+    { '<Esc><Esc>', '<cmd>NvimTreeClose<CR>', description = 'Close Explorer' },
+    { '<C-h>', '<C-w><C-h>', description = 'Move focus to the left window' },
+    { '<C-l>', '<C-w><C-l>', description = 'Move focus to the right window' },
+    { '<C-j>', '<C-w><C-j>', description = 'Move focus to the lower window' },
+    { '<C-k>', '<C-w><C-k>', description = 'Move focus to the upper window' },
+    { 'gy', "<cmd>:redir! @+ | echon join([expand('%'),  line('.')], ':') | redir END<CR>", description = 'Yank File/Line' },
+    { '0', '<cmd>:call SmartHome()<cr>', description = 'Smart Home' },
+    { ',', '@@', description = 'Repeat Last Macro' },
+    { 'Y', 'y$', description = 'Yank to End of Line' },
+    { '<leader>bs', '<cmd>:StripWhitespace<cr>', description = '[S]trip Whitespace' },
+    { '<leader>bw', '<cmd>call ToggleWrap()<cr>', description = 'Toggle [W]rap' },
+    { '<leader>bY', "<cmd>:echo expand('%:p') | let @+ = expand('%:p')<cr>", description = '[Y]ank Absolute Path' },
+    {
+      '<leader>by',
+      "<cmd>:echo join([expand('%'), line('.')], ':') | let @+ = join([expand('%'), line('.')], ':')<cr>",
+      description = '[Y]ank Relative Path/Line',
+    },
+    { '<leader>bx', '<cmd>:BufferLineCloseLeft<CR>:BufferLineCloseRight<cr>', description = 'Close All E[X]cept Current' },
+    { '<leader>bl', '<cmd>Telescope buffers<cr>', description = 'Buffer [L]ist' },
+    { '<leader>c', '<cmd>:bdelete!<cr>', description = '[C]lose Buffer' },
+    { '<leader>n', '<cmd>enew<cr>', description = '[N]ew Buffer' },
+    { '<leader>bp', '<cmd>:BufferLinePick<cr>', description = '[P]ick Buffer' },
+    { '<leader>j', '<cmd>:BufferLineCycleNext<cr>', description = 'Next Buffer' },
+    { '<leader>k', '<cmd>:BufferLineCyclePrev<cr>', description = 'Previous Buffer' },
+    { '<leader>;', '<cmd>:Dashboard<cr>', description = 'Dashboard' },
+    { '<leader>C', '<cmd>:e ~/.config/nvim/init.lua<cr>', description = 'Edit [C]onfig' },
+    { '<leader>lR', '<cmd>Trouble lsp_references<cr>', description = 'Show [R]eferences' },
+    { '<leader>lD', '<cmd>Trouble lsp_type_definitions<cr>', description = 'Type [D]efinition' },
+    { '<leader>ls', '<cmd>Trouble lsp_document_symbols<cr>', description = 'Document [S]ymbols' },
+    { '<leader>lS', "<cmd>lua require('telescope.builtin').lsp_dynamic_workspace_symbols()<cr>", description = 'Workspace [S]ymbols' },
+    { '<leader>lr', '<cmd>lua vim.lsp.buf.rename()<cr>', description = '[R]ename' },
+    { '<leader>ll', '<cmd>lua vim.lsp.codelens.run()<cr>', description = 'Code [L]ens Action' },
+    { '<leader>lq', '<cmd>lua vim.diagnostic.setloclist()<cr>', description = '[Q]uickfix' },
+    { '<leader>lj', '<cmd>lua vim.diagnostic.goto_next()<cr>', description = 'Next Diagnostic' },
+    { '<leader>lk', '<cmd>lua vim.diagnostic.goto_prev()<cr>', description = 'Previous Diagnostic' },
+    { '<leader>lm', '<cmd>Mason<cr>', description = 'Mason' },
+    { '<leader>q', '<cmd>qa<cr>', description = '[Q]uit' },
+    { 'ß', '<cmd>Telescope lsp_dynamic_workspace_symbols<cr>', description = 'Workspace Symbols' },
+  },
+  extensions = {
+    which_key = {
+      auto_register = true,
+    },
+    lazy_nvim = true,
+  },
+}
+
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
-vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
-vim.keymap.set('n', '<Esc><Esc>', '<cmd>NvimTreeClose<CR>')
 
--- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
--- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
--- is not what someone will guess without a bit more experience.
---
--- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
--- or just use <C-\><C-n> to exit terminal mode
-vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
+vim.keymap.set('i', '<C-=>', '<cmd>:call ZoomIn()<CR>')
+vim.keymap.set('i', '<C-->', '<cmd>:call ZoomOut()<CR>')
+vim.keymap.set('i', '<C-+>', '<cmd>:call ZoomReset()<CR>')
 
 -- TIP: Disable arrow keys in normal mode
 -- vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
@@ -38,59 +87,14 @@ vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' }
 --  Use CTRL+<hjkl> to switch between windows
 --
 --  See `:help wincmd` for a list of all window commands
-vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
-vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
-vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
-vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
-
-vim.keymap.set('n', 'gy', "<cmd>:redir! @+ | echon join([expand('%'),  line('.')], ':') | redir END<CR>", { desc = 'Yank File/Line' })
 
 vim.keymap.set('i', '<S-Insert>', '<C-R>+', { desc = 'Paste' })
 vim.keymap.set('c', '<S-Insert>', '<C-R>+', { desc = 'Paste' })
 
-vim.keymap.set('n', '0', '<cmd>:call SmartHome()<cr>')
-
-vim.keymap.set('n', 'q', '<cmd>q<cr>')
-vim.keymap.set('n', ',', '@@')
-vim.keymap.set('n', 'Y', 'y$')
-
-vim.keymap.set('n', '<leader>bs', '<cmd>:StripWhitespace<cr>', { desc = '[S]trip Whitespace' })
-vim.keymap.set('n', '<leader>bw', '<cmd>call ToggleWrap()<cr>', { desc = 'Toggle [W]rap' })
-vim.keymap.set('n', '<leader>bY', "<cmd>:echo expand('%:p') | let @+ = expand('%:p')<cr>", { desc = '[Y]ank Absolute Path' })
-vim.keymap.set(
-  'n',
-  '<leader>by',
-  "<cmd>:echo join([expand('%'), line('.')], ':') | let @+ = join([expand('%'), line('.')], ':')<cr>",
-  { desc = '[Y]ank Relative Path/Line' }
-)
-vim.keymap.set('n', '<leader>bx', '<cmd>:BufferLineCloseLeft<CR>:BufferLineCloseRight<cr>', { desc = 'Close All E[X]cept Current' })
-vim.keymap.set('n', '<leader>bl', '<cmd>Telescope buffers<cr>', { desc = 'Buffer [L]ist' })
-vim.keymap.set('n', '<leader>c', '<cmd>:bdelete!<cr>', { desc = '[C]lose Buffer' })
-vim.keymap.set('n', '<leader>n', '<cmd>enew<cr>', { desc = '[N]ew Buffer' })
-vim.keymap.set('n', '<leader>bp', '<cmd>:BufferLinePick<cr>', { desc = '[P]ick Buffer' })
-vim.keymap.set('n', '<leader>j', '<cmd>:BufferLineCycleNext<cr>', { desc = 'Next Buffer' })
-vim.keymap.set('n', '<leader>k', '<cmd>:BufferLineCyclePrev<cr>', { desc = 'Previous Buffer' })
-vim.keymap.set('n', '<leader>;', '<cmd>:Dashboard<cr>', { desc = 'Dashboard' })
-
-vim.keymap.set('n', '<leader>C', '<cmd>:e ~/.config/nvim/init.lua<cr>', { desc = 'Edit [C]onfig' })
-
-vim.keymap.set('n', '<leader>lR', '<cmd>Trouble lsp_references<cr>', { desc = 'Show [R]eferences' })
-vim.keymap.set('n', '<leader>lD', '<cmd>Trouble lsp_type_definitions<cr>', { desc = 'Type [D]efinition' })
-vim.keymap.set('n', '<leader>ls', '<cmd>Trouble lsp_document_symbols<cr>', { desc = 'Document [S]ymbols' })
-vim.keymap.set('n', '<leader>lS', "<cmd>lua require('telescope.builtin').lsp_dynamic_workspace_symbols()<cr>", { desc = 'Workspace [S]ymbols' })
-vim.keymap.set('n', '<leader>lr', '<cmd>lua vim.lsp.buf.rename()<cr>', { desc = '[R]ename' })
-vim.keymap.set('n', '<leader>ll', '<cmd>lua vim.lsp.codelens.run()<cr>', { desc = 'Code [L]ens Action' })
-vim.keymap.set('n', '<leader>lq', '<cmd>lua vim.diagnostic.setloclist()<cr>', { desc = '[Q]uickfix' })
-vim.keymap.set('n', '<leader>lj', '<cmd>lua vim.diagnostic.goto_next()<cr>', { desc = 'Next Diagnostic' })
-vim.keymap.set('n', '<leader>lk', '<cmd>lua vim.diagnostic.goto_prev()<cr>', { desc = 'Previous Diagnostic' })
-vim.keymap.set('n', '<leader>lm', '<cmd>Mason<cr>', { desc = 'Mason' })
+--vim.keymap.set('n', 'q', '<cmd>q<cr>')
 
 vim.keymap.set('v', 'n', ":'<,'>MoveBlock(1)<cr>", { desc = 'Move [N]ext' })
 vim.keymap.set('v', 'p', ":'<,'>MoveBlock(-1)<cr>", { desc = 'Move [P]revious' })
-
-vim.keymap.set('n', '<leader>q', '<cmd>qa<cr>', { desc = '[Q]uit' })
-
-vim.keymap.set('n', 'ß', '<cmd>Telescope lsp_dynamic_workspace_symbols<cr>', { desc = 'Workspace Symbols' })
 
 vim.cmd [[
   nmap <silent> w <Plug>CamelCaseMotion_w

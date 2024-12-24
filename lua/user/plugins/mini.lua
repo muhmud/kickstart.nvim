@@ -29,7 +29,12 @@ return {
     -- cursor location to LINE:COLUMN
     ---@diagnostic disable-next-line: duplicate-set-field
     statusline.section_location = function()
-      return '%2l:%-2v'
+      -- Calculate file progress percentage
+      local current_line = vim.fn.line '.'
+      local total_lines = vim.fn.line '$'
+      local percentage = math.floor(current_line / total_lines * 100)
+      local progress = string.format('%d%%', percentage)
+      return '%2l:%-2v' .. ' ' .. progress .. '%'
     end
 
     -- ... and there is more!
