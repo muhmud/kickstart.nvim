@@ -37,11 +37,13 @@ return {
     --  into multiple repos for maintenance purposes.
     'hrsh7th/cmp-nvim-lsp',
     'hrsh7th/cmp-path',
+    'onsails/lspkind.nvim',
   },
   config = function()
     -- See `:help cmp`
     local cmp = require 'cmp'
     local luasnip = require 'luasnip'
+    local lspkind = require 'lspkind'
     luasnip.config.setup {}
 
     cmp.setup {
@@ -52,15 +54,27 @@ return {
       },
       completion = { completeopt = 'menu,menuone,noinsert' },
 
+      formatting = {
+        format = lspkind.cmp_format {
+          mode = 'symbol_text',
+          menu = {
+            buffer = '[Buffer]',
+            nvim_lsp = '[LSP]',
+            luasnip = '[LuaSnip]',
+            nvim_lua = '[Lua]',
+            latex_symbols = '[Latex]',
+          },
+        },
+      },
       -- For an understanding of why these mappings were
       -- chosen, you will need to read `:help ins-completion`
       --
       -- No, but seriously. Please read `:help ins-completion`, it is really good!
       mapping = cmp.mapping.preset.insert {
         -- Select the [n]ext item
-        ['<C-n>'] = cmp.mapping.select_next_item(),
+        ['<C-j>'] = cmp.mapping.select_next_item(),
         -- Select the [p]revious item
-        ['<C-p>'] = cmp.mapping.select_prev_item(),
+        ['<C-k>'] = cmp.mapping.select_prev_item(),
 
         -- Scroll the documentation window [b]ack / [f]orward
         ['<C-b>'] = cmp.mapping.scroll_docs(-4),

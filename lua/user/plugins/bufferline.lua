@@ -6,7 +6,7 @@ return {
         separator_style = 'slant',
         indicator = {
           icon = ' ',
-          style = 'underline',
+          style = 'icon',
         },
         offsets = {
           {

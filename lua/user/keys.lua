@@ -39,7 +39,7 @@ require('legendary').setup {
     },
     { '<leader>bx', '<cmd>:BufferLineCloseLeft<CR>:BufferLineCloseRight<cr>', description = 'Close All E[X]cept Current' },
     { '<leader>bl', '<cmd>Telescope buffers<cr>', description = 'Buffer [L]ist' },
-    { '<leader>c', '<cmd>:bdelete!<cr>', description = '[C]lose Buffer' },
+    { '<leader>c', '<cmd>:bdelete<cr>', description = '[C]lose Buffer' },
     { '<leader>n', '<cmd>enew<cr>', description = '[N]ew Buffer' },
     { '<leader>bp', '<cmd>:BufferLinePick<cr>', description = '[P]ick Buffer' },
     { '<leader>j', '<cmd>:BufferLineCycleNext<cr>', description = 'Next Buffer' },
