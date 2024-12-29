@@ -22,6 +22,29 @@ return {
           '       ⠻⣿⣿⣿⣿⣶⣶⣾⣿⣿⣿⣿⣿⣿⣿⣿⡟⢀⣀⣤⣾⡿⠃     ',
           '                                   ',
         },
+        shortcut = {
+          {
+            icon = ' ',
+            desc = 'Config',
+            group = 'DashboardShortCut',
+            action = 'e ~/.config/nvim/init.lua',
+            key = 'c',
+          },
+          {
+            icon = ' ',
+            desc = 'Recent Files',
+            group = 'DashboardShortCut',
+            action = 'Telescope oldfiles',
+            key = 'r',
+          },
+          {
+            icon = '󰮗 ',
+            desc = 'Find Files',
+            group = 'DashboardShortCut',
+            action = 'Telescope find_files',
+            key = 'f',
+          },
+        },
       },
     }
   end,
