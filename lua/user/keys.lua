@@ -1,3 +1,4 @@
+local newBufferCommand = ''
 -- GUI-specific options and settings
 if vim.env.NEOVIDE == '1' then
   vim.keymap.set('i', '<M-j>', '<cmd>:BufferLineCyclePrev<cr>')
@@ -8,8 +9,12 @@ if vim.env.NEOVIDE == '1' then
   vim.keymap.set('n', '<C-Tab>', '<C-W><C-W>')
   vim.keymap.set('i', '<C-Tab>', '<C-W><C-W>')
   vim.keymap.set('i', '<C-BS>', '<C-w>')
+
+  newBufferCommand = '<cmd>:call SwitchNew()<cr>'
 else
   vim.keymap.set('i', '<M-BS>', '<C-w>')
+
+  newBufferCommand = '<cmd>enew<cr>'
 end
 
 require('legendary').setup {
@@ -40,7 +45,7 @@ require('legendary').setup {
     { '<leader>bx', '<cmd>:BufferLineCloseLeft<CR>:BufferLineCloseRight<cr>', description = 'Close All E[X]cept Current' },
     { '<leader>bl', '<cmd>Telescope buffers<cr>', description = 'Buffer [L]ist' },
     { '<leader>c', '<cmd>:bdelete<cr>', description = '[C]lose Buffer' },
-    { '<leader>n', '<cmd>enew<cr>', description = '[N]ew Buffer' },
+    { '<leader>n', newBufferCommand, description = '[N]ew Buffer' },
     { '<leader>bp', '<cmd>:BufferLinePick<cr>', description = '[P]ick Buffer' },
     { '<leader>j', '<cmd>:BufferLineCycleNext<cr>', description = 'Next Buffer' },
     { '<leader>k', '<cmd>:BufferLineCyclePrev<cr>', description = 'Previous Buffer' },
@@ -73,9 +78,9 @@ require('legendary').setup {
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
 
-vim.keymap.set('i', '<C-=>', '<cmd>:call ZoomIn()<CR>')
-vim.keymap.set('i', '<C-->', '<cmd>:call ZoomOut()<CR>')
-vim.keymap.set('i', '<C-+>', '<cmd>:call ZoomReset()<CR>')
+vim.keymap.set('i', '<C-=>', '<cmd>:call ZoomIn()<CR>', { desc = 'Zoom In' })
+vim.keymap.set('i', '<C-->', '<cmd>:call ZoomOut()<CR>', { desc = 'Zoom Out' })
+vim.keymap.set('i', '<C-+>', '<cmd>:call ZoomReset()<CR>', { desc = 'Zoom Reset' })
 
 -- TIP: Disable arrow keys in normal mode
 -- vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
@@ -93,8 +98,15 @@ vim.keymap.set('c', '<S-Insert>', '<C-R>+', { desc = 'Paste' })
 
 --vim.keymap.set('n', 'q', '<cmd>q<cr>')
 
+vim.keymap.set('v', '0', '<cmd>:call SmartHome()<cr>', { desc = 'Smart Home' })
+vim.keymap.set('v', 'y', 'ygv<esc>', { desc = 'Yank' })
+vim.keymap.set('v', '=', '=gv', { desc = 'Indent' })
 vim.keymap.set('v', 'n', ":'<,'>MoveBlock(1)<cr>", { desc = 'Move [N]ext' })
 vim.keymap.set('v', 'p', ":'<,'>MoveBlock(-1)<cr>", { desc = 'Move [P]revious' })
+
+vim.keymap.set('v', '<C-=>', '<cmd>:call ZoomIn()<CR>', { desc = 'Zoom In' })
+vim.keymap.set('v', '<C-->', '<cmd>:call ZoomOut()<CR>', { desc = 'Zoom Out' })
+vim.keymap.set('v', '<C-+>', '<cmd>:call ZoomReset()<CR>', { desc = 'Zoom Reset' })
 
 vim.cmd [[
   nmap <silent> w <Plug>CamelCaseMotion_w
