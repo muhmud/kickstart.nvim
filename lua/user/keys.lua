@@ -1,4 +1,6 @@
 local newBufferCommand = ''
+local closeBufferCommand = ''
+
 -- GUI-specific options and settings
 if vim.env.NEOVIDE == '1' then
   vim.keymap.set('i', '<M-j>', '<cmd>:BufferLineCyclePrev<cr>')
@@ -11,13 +13,15 @@ if vim.env.NEOVIDE == '1' then
   vim.keymap.set('i', '<C-BS>', '<C-w>')
 
   newBufferCommand = '<cmd>:call SwitchNew()<cr>'
+  closeBufferCommand = '<cmd>:call SwitchClose()<cr>'
 else
   vim.keymap.set('i', '<M-BS>', '<C-w>')
 
   newBufferCommand = '<cmd>enew<cr>'
+  closeBufferCommand = '<cmd>q<cr>'
 end
 
-require('legendary').setup {
+local keys = {
   keymaps = {
     { '<C-=>', '<cmd>:call ZoomIn()<CR>', description = 'Zoom In' },
     { '<C-->', '<cmd>:call ZoomOut()<CR>', description = 'Zoom Out' },
@@ -26,11 +30,8 @@ require('legendary').setup {
     { '<leader><leader>', '<cmd>:Legendary<CR>', description = 'Legend' },
     { '<Esc>', '<cmd>nohlsearch<CR>', description = 'Clear Search Highlights' },
     { '<Esc><Esc>', '<cmd>NvimTreeClose<CR>', description = 'Close Explorer' },
-    { '<C-h>', '<C-w><C-h>', description = 'Move focus to the left window' },
-    { '<C-l>', '<C-w><C-l>', description = 'Move focus to the right window' },
-    { '<C-j>', '<C-w><C-j>', description = 'Move focus to the lower window' },
-    { '<C-k>', '<C-w><C-k>', description = 'Move focus to the upper window' },
     { 'gy', "<cmd>:redir! @+ | echon join([expand('%'),  line('.')], ':') | redir END<CR>", description = 'Yank File/Line' },
+    { 'gh', '<cmd>:BufferLinePick<cr>', description = 'Pick Buffer' },
     { '0', '<cmd>:call SmartHome()<cr>', description = 'Smart Home' },
     { ',', '@@', description = 'Repeat Last Macro' },
     { 'Y', 'y$', description = 'Yank to End of Line' },
@@ -46,7 +47,6 @@ require('legendary').setup {
     { '<leader>bl', '<cmd>Telescope buffers<cr>', description = 'Buffer [L]ist' },
     { '<leader>c', '<cmd>:bdelete<cr>', description = '[C]lose Buffer' },
     { '<leader>n', newBufferCommand, description = '[N]ew Buffer' },
-    { '<leader>bp', '<cmd>:BufferLinePick<cr>', description = '[P]ick Buffer' },
     { '<leader>j', '<cmd>:BufferLineCycleNext<cr>', description = 'Next Buffer' },
     { '<leader>k', '<cmd>:BufferLineCyclePrev<cr>', description = 'Previous Buffer' },
     { '<leader>;', '<cmd>:Dashboard<cr>', description = 'Dashboard' },
@@ -62,7 +62,14 @@ require('legendary').setup {
     { '<leader>lk', '<cmd>lua vim.diagnostic.goto_prev()<cr>', description = 'Previous Diagnostic' },
     { '<leader>lm', '<cmd>Mason<cr>', description = 'Mason' },
     { '<leader>q', '<cmd>qa<cr>', description = '[Q]uit' },
-    { 'ß', '<cmd>Telescope lsp_dynamic_workspace_symbols<cr>', description = 'Workspace Symbols' },
+    { 'Q', closeBufferCommand, description = '[Q]uit Buffer' },
+    { '<M-x>z', '<cmd>:MaximizerToggle<cr>', description = '[Z]oom Window' },
+    { '<M-w>', '<cmd>:MoveWord(1)<cr>', description = 'Move [W]ord' },
+    { '<M-b>', '<cmd>:MoveWord(-1)<cr>', description = 'Move Word [B]ack' },
+    { '<M-n>', '<cmd>:MoveLine(1)<cr>', description = 'Move Line [N]ext' },
+    { '<M-p>', '<cmd>:MoveLine(-1)<cr>', description = 'Move Line [P]revious' },
+    { '“', '<cmd>Telescope buffers<cr>', description = 'List Buffers' }, -- AltGr+B
+    { 'ß', '<cmd>Telescope lsp_dynamic_workspace_symbols<cr>', description = 'List Workspace Symbols' }, -- AltGr+S
   },
   extensions = {
     which_key = {
@@ -71,6 +78,21 @@ require('legendary').setup {
     lazy_nvim = true,
   },
 }
+
+if vim.env.NEOVIDE == '1' then
+  table.insert(keys.keymaps, { '<C-\\>', '<cmd>:split<cr>', description = 'Horizontal Split' })
+  table.insert(keys.keymaps, { '<C-|>', '<cmd>:vsplit<cr>', description = 'Vertical Split' })
+  table.insert(keys.keymaps, { '<C-h>', '<cmd>:wincmd h<cr>', description = 'Move focus to the left window' })
+  table.insert(keys.keymaps, { '<C-S-h>', '<cmd>:wincmd H<cr>', description = 'Shift left window' })
+  table.insert(keys.keymaps, { '<C-j>', '<cmd>:wincmd h<cr>', description = 'Move focus to the lower window' })
+  table.insert(keys.keymaps, { '<C-S-j>', '<cmd>:wincmd H<cr>', description = 'Shift lower window' })
+  table.insert(keys.keymaps, { '<C-k>', '<cmd>:wincmd h<cr>', description = 'Move focus to the upper window' })
+  table.insert(keys.keymaps, { '<C-S-k>', '<cmd>:wincmd H<cr>', description = 'Shift upper window' })
+  table.insert(keys.keymaps, { '<C-l>', '<cmd>:wincmd h<cr>', description = 'Move focus to the right window' })
+  table.insert(keys.keymaps, { '<C-S-l>', '<cmd>:wincmd H<cr>', description = 'Shift right window' })
+end
+
+require('legendary').setup(keys)
 
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
