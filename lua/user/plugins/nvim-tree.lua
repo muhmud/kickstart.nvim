@@ -20,6 +20,49 @@ return {
         vim.cmd [[ NvimTreeClose ]]
       end
 
+      local function get_node_at_cursor()
+        local core = require 'nvim-tree.core'
+        local view = require 'nvim-tree.view'
+
+        if not core.get_explorer() then
+          return
+        end
+
+        local winnr = view.get_winnr()
+        if not winnr then
+          return
+        end
+
+        local cursor = vim.api.nvim_win_get_cursor(winnr)
+        local line = cursor[1]
+
+        if line == 1 and view.is_root_folder_visible(core.get_cwd()) then
+          return { name = '..' }
+        end
+
+        return require('nvim-tree.utils').get_nodes_by_line(core.get_explorer().nodes, core.get_nodes_starting_line())[line]
+      end
+
+      local function start_telescope(telescope_mode)
+        local node = get_node_at_cursor()
+        if node ~= nil then
+          local abspath = node.link_to or node.absolute_path
+          local is_folder = node.open ~= nil
+          local basedir = is_folder and abspath or vim.fn.fnamemodify(abspath, ':h')
+          require('telescope.builtin')[telescope_mode] {
+            cwd = basedir,
+          }
+        end
+      end
+
+      local function telescope_find_files(_)
+        start_telescope 'find_files'
+      end
+
+      local function telescope_live_grep(_)
+        start_telescope 'live_grep'
+      end
+
       api.config.mappings.default_on_attach(bufnr)
 
       vim.keymap.set('n', 'l', api.node.open.edit, { buffer = bufnr })
@@ -31,6 +74,8 @@ return {
       vim.keymap.set('n', '<M-h>', resize_up, { buffer = bufnr })
       vim.keymap.set('n', '<M-l>', resize_down, { buffer = bufnr })
       vim.keymap.set('n', '<esc><esc>', close, { buffer = bufnr })
+      vim.keymap.set('n', 's', telescope_live_grep, { buffer = bufnr })
+      vim.keymap.set('n', 'f', telescope_find_files, { buffer = bufnr })
     end
 
     require('nvim-tree').setup {
