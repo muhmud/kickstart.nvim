@@ -51,15 +51,20 @@ local keys = {
     { '<leader>k', '<cmd>:BufferLineCyclePrev<cr>', description = 'Previous Buffer' },
     { '<leader>;', '<cmd>:Dashboard<cr>', description = 'Dashboard' },
     { '<leader>C', '<cmd>:e ~/.config/nvim/init.lua<cr>', description = 'Edit [C]onfig' },
-    { '<leader>lR', '<cmd>Trouble lsp_references<cr>', description = 'Show [R]eferences' },
-    { '<leader>lD', '<cmd>Trouble lsp_type_definitions<cr>', description = 'Type [D]efinition' },
-    { '<leader>ls', '<cmd>Trouble lsp_document_symbols<cr>', description = 'Document [S]ymbols' },
+    { '<leader>lR', '<cmd>Trouble lsp_references toggle<cr>', description = 'Show [R]eferences' },
+    { '<leader>lD', '<cmd>Trouble lsp_type_definitions toggle<cr>', description = 'Type [D]efinitions' },
+    { '<leader>ld', '<cmd>Trouble diagnostics toggle<cr>', description = '[D]iagnostics' },
+    { '<leader>ls', '<cmd>Trouble lsp_document_symbols toggle<cr>', description = 'Document [S]ymbols' },
     { '<leader>lS', "<cmd>lua require('telescope.builtin').lsp_dynamic_workspace_symbols()<cr>", description = 'Workspace [S]ymbols' },
     { '<leader>lr', '<cmd>lua vim.lsp.buf.rename()<cr>', description = '[R]ename' },
-    { '<leader>ll', '<cmd>lua vim.lsp.codelens.run()<cr>', description = 'Code [L]ens Action' },
-    { '<leader>lq', '<cmd>lua vim.diagnostic.setloclist()<cr>', description = '[Q]uickfix' },
+    { '<leader>la', '<cmd>lua vim.lsp.codelens.run()<cr>', description = 'Code Lens [A]ction' },
+    { '<leader>ll', '<cmd>Trouble loclist toggle<cr>', description = '[L]ocation List' },
+    { '<leader>lq', '<cmd>Trouble qflist toggle<cr>', description = '[Q]uickfix' },
     { '<leader>lj', '<cmd>lua vim.diagnostic.goto_next()<cr>', description = 'Next Diagnostic' },
     { '<leader>lk', '<cmd>lua vim.diagnostic.goto_prev()<cr>', description = 'Previous Diagnostic' },
+    { '<leader>gb', '<cmd>Gitsigns toggle_current_line_blame<cr>', description = '[B]lame Line' },
+    { 'gl', '<cmd>Lspsaga show_line_diagnostics<cr>', description = 'Show [L]ine Diagnostics' },
+    { 'K', '<cmd>Lspsaga hover_doc<cr>', description = 'Show Doc' },
     { '<leader>lm', '<cmd>Mason<cr>', description = '[M]ason' },
     { '<leader>q', '<cmd>qa<cr>', description = '[Q]uit' },
     { 'Q', closeBufferCommand, description = '[Q]uit Buffer' },
@@ -84,12 +89,12 @@ if vim.env.NEOVIDE == '1' then
   table.insert(keys.keymaps, { '<C-|>', '<cmd>:vsplit<cr>', description = 'Vertical Split' })
   table.insert(keys.keymaps, { '<C-h>', '<cmd>:wincmd h<cr>', description = 'Move focus to the left window' })
   table.insert(keys.keymaps, { '<C-S-h>', '<cmd>:wincmd H<cr>', description = 'Shift left window' })
-  table.insert(keys.keymaps, { '<C-j>', '<cmd>:wincmd h<cr>', description = 'Move focus to the lower window' })
-  table.insert(keys.keymaps, { '<C-S-j>', '<cmd>:wincmd H<cr>', description = 'Shift lower window' })
-  table.insert(keys.keymaps, { '<C-k>', '<cmd>:wincmd h<cr>', description = 'Move focus to the upper window' })
-  table.insert(keys.keymaps, { '<C-S-k>', '<cmd>:wincmd H<cr>', description = 'Shift upper window' })
-  table.insert(keys.keymaps, { '<C-l>', '<cmd>:wincmd h<cr>', description = 'Move focus to the right window' })
-  table.insert(keys.keymaps, { '<C-S-l>', '<cmd>:wincmd H<cr>', description = 'Shift right window' })
+  table.insert(keys.keymaps, { '<C-j>', '<cmd>:wincmd j<cr>', description = 'Move focus to the lower window' })
+  table.insert(keys.keymaps, { '<C-S-j>', '<cmd>:wincmd J<cr>', description = 'Shift lower window' })
+  table.insert(keys.keymaps, { '<C-k>', '<cmd>:wincmd k<cr>', description = 'Move focus to the upper window' })
+  table.insert(keys.keymaps, { '<C-S-k>', '<cmd>:wincmd K<cr>', description = 'Shift upper window' })
+  table.insert(keys.keymaps, { '<C-l>', '<cmd>:wincmd l<cr>', description = 'Move focus to the right window' })
+  table.insert(keys.keymaps, { '<C-S-l>', '<cmd>:wincmd L<cr>', description = 'Shift right window' })
 end
 
 require('legendary').setup(keys)

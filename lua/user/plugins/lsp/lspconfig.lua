@@ -13,6 +13,7 @@ return {
 
     -- Allows extra capabilities provided by nvim-cmp
     'hrsh7th/cmp-nvim-lsp',
+    'nvimdev/lspsaga.nvim',
   },
   config = function()
     -- Brief aside: **What is LSP?**

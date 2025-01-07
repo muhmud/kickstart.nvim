@@ -45,6 +45,7 @@ return {
       { '<leader>l', group = '[L]sp' },
       { '<leader>b', group = '[B]uffer' },
       { '<leader>s', group = '[S]earch' },
+      { '<leader>g', group = '[G]it' },
     },
   },
 }
