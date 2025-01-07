@@ -63,6 +63,7 @@ local keys = {
     { '<leader>lj', '<cmd>lua vim.diagnostic.goto_next()<cr>', description = 'Next Diagnostic' },
     { '<leader>lk', '<cmd>lua vim.diagnostic.goto_prev()<cr>', description = 'Previous Diagnostic' },
     { '<leader>gb', '<cmd>Gitsigns toggle_current_line_blame<cr>', description = '[B]lame Line' },
+    { '<leader>f', '<cmd>lua require("ranger-nvim").open(true)<CR>', desc = '[F]ile Ranger' },
     { 'gl', '<cmd>Lspsaga show_line_diagnostics<cr>', description = 'Show [L]ine Diagnostics' },
     { 'K', '<cmd>Lspsaga hover_doc<cr>', description = 'Show Doc' },
     { '<leader>lm', '<cmd>Mason<cr>', description = '[M]ason' },
