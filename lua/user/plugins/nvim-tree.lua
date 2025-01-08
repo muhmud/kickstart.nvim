@@ -63,6 +63,20 @@ return {
         start_telescope 'live_grep'
       end
 
+      local function get_git_root()
+        local git_dir = vim.fn.finddir('.git', vim.fn.expand '%:p:h' .. ';')
+        return vim.fn.fnamemodify(git_dir, ':h')
+      end
+
+      local function goto_git_root()
+        local git_root = get_git_root()
+        if git_root then
+          local node = get_node_at_cursor()
+          require('nvim-tree.api').tree.change_root(git_root)
+          require('nvim-tree.api').tree.find_file(node.absolute_path, true)
+        end
+      end
+
       api.config.mappings.default_on_attach(bufnr)
 
       vim.keymap.set('n', 'l', api.node.open.edit, { buffer = bufnr })
@@ -71,6 +85,7 @@ return {
       vim.keymap.set('n', 'v', api.node.open.vertical, { buffer = bufnr })
       vim.keymap.set('n', 'h', api.node.navigate.parent_close, { buffer = bufnr })
       vim.keymap.set('n', 'C', api.tree.change_root_to_node, { buffer = bufnr })
+      vim.keymap.set('n', 'V', goto_git_root, { buffer = bufnr })
       vim.keymap.set('n', '<M-h>', resize_up, { buffer = bufnr })
       vim.keymap.set('n', '<M-l>', resize_down, { buffer = bufnr })
       vim.keymap.set('n', '<esc><esc>', close, { buffer = bufnr })
@@ -86,11 +101,16 @@ return {
       },
       update_focused_file = {
         enable = true,
-        update_root = {
-          enable = true,
-          ignore_list = {},
-        },
-        exclude = false,
+        update_root = true,
+      },
+      git = {
+        enable = true,
+      },
+      renderer = {
+        root_folder_label = function(path)
+          -- Get just the folder name without full path
+          return vim.fn.fnamemodify(path, ':t')
+        end,
       },
     }
   end,

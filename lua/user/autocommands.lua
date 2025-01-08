@@ -15,9 +15,12 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 -- Autocd
 vim.api.nvim_create_autocmd('BufEnter', {
   callback = function()
-    -- Only change directory if the buffer is a normal file/directory
-    if vim.fn.expand('%:p'):match '^%w+://' == nil then
-      vim.cmd.lcd(vim.fn.expand '%:p:h')
+    local filename = vim.fn.expand '%:t'
+    if not filename:match '^NvimTree' then
+      -- Only change directory if the buffer is a normal file/directory
+      if vim.fn.expand('%:p'):match '^%w+://' == nil then
+        vim.cmd.lcd(vim.fn.expand '%:p:h')
+      end
     end
   end,
 })
