@@ -1,6 +1,6 @@
 require 'user.autocommands'
-require 'user.lazy'
 require 'user.options'
+require 'user.lazy'
+require 'user.keys'
 require 'user.vimscript.smart-home'
 require 'user.vimscript.zoom'
-require 'user.keys'

@@ -26,7 +26,7 @@ local keys = {
     { '<C-=>', '<cmd>:call ZoomIn()<CR>', description = 'Zoom In' },
     { '<C-->', '<cmd>:call ZoomOut()<CR>', description = 'Zoom Out' },
     { '<C-+>', '<cmd>:call ZoomReset()<CR>', description = 'Zoom Reset' },
-    { '<leader>e', '<cmd>:NvimTreeFocus<CR>', description = '[E]xplorer' },
+    { '<leader>e', '<cmd>:lua Tree_focus()<CR>', description = '[E]xplorer' },
     { '<leader><leader>', '<cmd>:Legendary<CR>', description = 'Legend' },
     { '<Esc>', '<cmd>nohlsearch<CR>', description = 'Clear Search Highlights' },
     { '<Esc><Esc>', '<cmd>NvimTreeClose<CR>', description = 'Close Explorer' },
