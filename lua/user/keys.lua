@@ -4,9 +4,13 @@ local closeBufferCommand = ''
 -- GUI-specific options and settings
 if vim.env.NEOVIDE == '1' then
   vim.keymap.set('i', '<M-j>', '<cmd>:BufferLineCyclePrev<cr>')
+  vim.keymap.set('i', '<M-S-j>', '<cmd>:BufferLineMovePrev<cr>')
   vim.keymap.set('i', '<M-k>', '<cmd>:BufferLineCycleNext<cr>')
+  vim.keymap.set('i', '<M-S-k>', '<cmd>:BufferLineMoveNext<cr>')
   vim.keymap.set('n', '<M-j>', '<cmd>:BufferLineCyclePrev<cr>')
+  vim.keymap.set('n', '<M-S-j>', '<cmd>:BufferLineMovePrev<cr>')
   vim.keymap.set('n', '<M-k>', '<cmd>:BufferLineCycleNext<cr>')
+  vim.keymap.set('n', '<M-S-k>', '<cmd>:BufferLineMoveNext<cr>')
 
   vim.keymap.set('n', '<C-Tab>', '<C-W><C-W>')
   vim.keymap.set('i', '<C-Tab>', '<C-W><C-W>')
