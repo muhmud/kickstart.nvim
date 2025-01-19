@@ -160,6 +160,19 @@ return {
       },
     }
 
+    -- Customize the icons for the different diagnostic levels
+    local signs = {
+      Error = '󰅚', -- Replace default 'E' with '❗'
+      Warn = '⚠️', -- Replace default 'W' with '⚠️'
+      Info = 'ℹ️', -- Replace default 'I' with 'ℹ️'
+      Hint = '󰌵', -- Replace default 'H' with '💡'
+    }
+
+    -- Apply custom icons
+    for type, icon in pairs(signs) do
+      vim.fn.sign_define('DiagnosticSign' .. type, { text = icon, texthl = 'Diagnostic' .. type })
+    end
+
     -- Ensure the servers and tools above are installed
     --  To check the current status of installed tools and/or manually install
     --  other tools, you can run

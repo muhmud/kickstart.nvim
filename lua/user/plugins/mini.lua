@@ -23,11 +23,6 @@ return {
     local statusline = require 'mini.statusline'
     vim.api.nvim_set_hl(0, 'MiniStatuslineFilename', { fg = '#abb2bf', bg = '#2f2d3d' })
 
-    -- vim.api.nvim_set_hl(0, 'MiniStatuslineError', { fg = '#ff5370', bg = '#1a1c25' })
-    -- vim.api.nvim_set_hl(0, 'MiniStatuslineWarn', { fg = '#ffcb6b', bg = '#1a1c25' })
-    -- vim.api.nvim_set_hl(0, 'MiniStatuslineInfo', { fg = 'NvimLightCyan', bg = '#1a1c25' })
-    -- vim.api.nvim_set_hl(0, 'MiniStatuslineHint', { fg = '#c792ea', bg = '#1a1c25' })
-
     -- set use_icons to true if you have a Nerd Font
     statusline.setup {
       use_icons = vim.g.have_nerd_font,
@@ -43,8 +38,8 @@ return {
             trunc_width = 75,
             signs = {
               ERROR = '%#DiagnosticError#󰅚 ',
-              WARN = '%#DiagnosticWarn#󰀦 ',
-              INFO = '%#DiagnosticInfo#󰋼 ',
+              WARN = '%#DiagnosticWarn#⚠️ ',
+              INFO = '%#DiagnosticInfo#ℹ️ ',
               HINT = '%#DiagnosticHint#󰌵 ',
             },
             icon = '',

@@ -40,6 +40,10 @@ return {
       },
     },
 
+    win = {
+      padding = { 1, 15 },
+    },
+
     -- Document existing key chains
     spec = {
       { '<leader>l', group = '[L]sp' },
