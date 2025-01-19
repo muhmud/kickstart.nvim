@@ -86,14 +86,14 @@ return {
             { hl = mode_hl, strings = { mode } },
             create_statusline_separator(mode_hl, 'MiniStatuslineDevinfo', ''),
             { hl = 'MiniStatuslineDevinfo', strings = { git, diff } },
-            create_statusline_separator('MiniStatuslineDevinfo', 'DiagnosticHint', ''),
+            -- create_statusline_separator('MiniStatuslineDevinfo', 'DiagnosticHint', ''),
             { hl = 'DiagnosticHint', strings = { lsp } },
             { hl = 'DiagnosticHint', strings = { diagnostics } },
-            create_statusline_separator('DiagnosticHint', 'MiniStatuslineFilename', ''),
+            --create_statusline_separator('DiagnosticHint', 'MiniStatuslineFilename', ''),
             '%<', -- Mark general truncate point
             { hl = 'MiniStatuslineFilename', strings = { filename } },
             '%=', -- End left alignment
-            create_statusline_separator('MiniStatuslineFilename', 'MiniStatuslineFileinfo', ''),
+            --create_statusline_separator('MiniStatuslineFilename', 'MiniStatuslineFileinfo', ''),
             { hl = 'MiniStatuslineFileinfo', strings = { fileinfo } },
             create_statusline_separator(mode_hl, 'MiniStatuslineFileinfo', ''),
             { hl = mode_hl, strings = { search, location } },
