@@ -16,17 +16,17 @@ return {
     -- - sd'   - [S]urround [D]elete [']quotes
     -- - sr)'  - [S]urround [R]eplace [)] [']
     require('mini.surround').setup()
-askjd 09
+
     -- Simple and easy statusline.
     --  You could remove this setup call if you don't like it,
     --  and try some other statusline plugin
     local statusline = require 'mini.statusline'
     vim.api.nvim_set_hl(0, 'MiniStatuslineFilename', { fg = '#abb2bf', bg = '#2f2d3d' })
 
-    vim.api.nvim_set_hl(0, 'MiniStatuslineError', { fg = '#ff5370', bg = '#1a1c25' })
-    vim.api.nvim_set_hl(0, 'MiniStatuslineWarn', { fg = '#ffcb6b', bg = '#1a1c25' })
-    vim.api.nvim_set_hl(0, 'MiniStatuslineInfo', { fg = 'NvimLightCyan', bg = '#1a1c25' })
-    vim.api.nvim_set_hl(0, 'MiniStatuslineHint', { fg = '#c792ea', bg = '#1a1c25' })
+    -- vim.api.nvim_set_hl(0, 'MiniStatuslineError', { fg = '#ff5370', bg = '#1a1c25' })
+    -- vim.api.nvim_set_hl(0, 'MiniStatuslineWarn', { fg = '#ffcb6b', bg = '#1a1c25' })
+    -- vim.api.nvim_set_hl(0, 'MiniStatuslineInfo', { fg = 'NvimLightCyan', bg = '#1a1c25' })
+    -- vim.api.nvim_set_hl(0, 'MiniStatuslineHint', { fg = '#c792ea', bg = '#1a1c25' })
 
     -- set use_icons to true if you have a Nerd Font
     statusline.setup {
@@ -42,10 +42,10 @@ askjd 09
           local diagnostics = MiniStatusline.section_diagnostics {
             trunc_width = 75,
             signs = {
-              ERROR = '%#MiniStatuslineError#󰅚 ',
-              WARN = '%#MiniStatuslineWarn#󰀦 ',
-              INFO = '%#MiniStatuslineInfo#󰋼 ',
-              HINT = '%#MiniStatuslineHint#󰌵 ',
+              ERROR = '%#DiagnosticError#󰅚 ',
+              WARN = '%#DiagnosticWarn#󰀦 ',
+              INFO = '%#DiagnosticInfo#󰋼 ',
+              HINT = '%#DiagnosticHint#󰌵 ',
             },
             icon = '',
           }
@@ -57,7 +57,9 @@ askjd 09
 
           return MiniStatusline.combine_groups {
             { hl = mode_hl, strings = { mode } },
-            { hl = 'MiniStatuslineDevinfo', strings = { git, diff, diagnostics, lsp } },
+            { hl = 'MiniStatuslineDevinfo', strings = { git, diff } },
+            { hl = 'DiagnosticHint', strings = { lsp } },
+            { hl = 'DiagnosticHint', strings = { diagnostics } },
             '%<', -- Mark general truncate point
             { hl = 'MiniStatuslineFilename', strings = { filename } },
             '%=', -- End left alignment
