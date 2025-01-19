@@ -16,6 +16,7 @@ return {
     -- - sd'   - [S]urround [D]elete [']quotes
     -- - sr)'  - [S]urround [R]eplace [)] [']
     require('mini.surround').setup()
+    require('mini.git').setup()
 
     -- Simple and easy statusline.
     --  You could remove this setup call if you don't like it,
@@ -23,8 +24,46 @@ return {
     local statusline = require 'mini.statusline'
     vim.api.nvim_set_hl(0, 'MiniStatuslineFilename', { fg = '#abb2bf', bg = '#2f2d3d' })
 
+    vim.api.nvim_set_hl(0, 'MiniStatuslineError', { fg = '#ff5370', bg = '#1a1c25' })
+    vim.api.nvim_set_hl(0, 'MiniStatuslineWarn', { fg = '#ffcb6b', bg = '#1a1c25' })
+    vim.api.nvim_set_hl(0, 'MiniStatuslineInfo', { fg = 'NvimLightCyan', bg = '#1a1c25' })
+    vim.api.nvim_set_hl(0, 'MiniStatuslineHint', { fg = '#c792ea', bg = '#1a1c25' })
+
     -- set use_icons to true if you have a Nerd Font
-    statusline.setup { use_icons = vim.g.have_nerd_font }
+    statusline.setup {
+      use_icons = vim.g.have_nerd_font,
+      content = {
+        active = function()
+          local mode, mode_hl = MiniStatusline.section_mode { trunc_width = 120 }
+          local git = MiniStatusline.section_git { trunc_width = 40 }
+          local diff = MiniStatusline.section_diff { trunc_width = 75 }
+          local diagnostics = MiniStatusline.section_diagnostics {
+            trunc_width = 75,
+            signs = {
+              ERROR = '%#MiniStatuslineError#󰅚 ',
+              WARN = '%#MiniStatuslineWarn#󰀦 ',
+              INFO = '%#MiniStatuslineInfo#󰋼 ',
+              HINT = '%#MiniStatuslineHint#󰌵 ',
+            },
+          }
+          local lsp = MiniStatusline.section_lsp { trunc_width = 75 }
+          local filename = MiniStatusline.section_filename { trunc_width = 140 }
+          local fileinfo = MiniStatusline.section_fileinfo { trunc_width = 120 }
+          local location = MiniStatusline.section_location { trunc_width = 75 }
+          local search = MiniStatusline.section_searchcount { trunc_width = 75 }
+
+          return MiniStatusline.combine_groups {
+            { hl = mode_hl, strings = { mode } },
+            { hl = 'MiniStatuslineDevinfo', strings = { git, diff, diagnostics, lsp } },
+            '%<', -- Mark general truncate point
+            { hl = 'MiniStatuslineFilename', strings = { filename } },
+            '%=', -- End left alignment
+            { hl = 'MiniStatuslineFileinfo', strings = { fileinfo } },
+            { hl = mode_hl, strings = { search, location } },
+          }
+        end,
+      },
+    }
 
     -- You can configure sections in the statusline by overriding their
     -- default behavior. For example, here we set the section for
