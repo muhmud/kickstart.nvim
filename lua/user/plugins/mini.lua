@@ -16,8 +16,7 @@ return {
     -- - sd'   - [S]urround [D]elete [']quotes
     -- - sr)'  - [S]urround [R]eplace [)] [']
     require('mini.surround').setup()
-    require('mini.git').setup()
-
+askjd 09
     -- Simple and easy statusline.
     --  You could remove this setup call if you don't like it,
     --  and try some other statusline plugin
@@ -36,7 +35,10 @@ return {
         active = function()
           local mode, mode_hl = MiniStatusline.section_mode { trunc_width = 120 }
           local git = MiniStatusline.section_git { trunc_width = 40 }
-          local diff = MiniStatusline.section_diff { trunc_width = 75 }
+          local diff = MiniStatusline.section_diff {
+            trunc_width = 75,
+            icon = '',
+          }
           local diagnostics = MiniStatusline.section_diagnostics {
             trunc_width = 75,
             signs = {
@@ -45,6 +47,7 @@ return {
               INFO = '%#MiniStatuslineInfo#󰋼 ',
               HINT = '%#MiniStatuslineHint#󰌵 ',
             },
+            icon = '',
           }
           local lsp = MiniStatusline.section_lsp { trunc_width = 75 }
           local filename = MiniStatusline.section_filename { trunc_width = 140 }
