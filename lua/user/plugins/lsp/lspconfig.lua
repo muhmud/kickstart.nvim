@@ -162,10 +162,10 @@ return {
 
     -- Customize the icons for the different diagnostic levels
     local signs = {
-      Error = '󰅚', -- Replace default 'E' with '❗'
-      Warn = '⚠️', -- Replace default 'W' with '⚠️'
-      Info = 'ℹ️', -- Replace default 'I' with 'ℹ️'
-      Hint = '󰌵', -- Replace default 'H' with '💡'
+      Error = vim.env.NVIM_USE_ICONS == '1' and '󰅚' or 'E',
+      Warn = vim.env.NVIM_USE_ICONS == '1' and '⚠️' or 'W',
+      Info = vim.env.NVIM_USE_ICONS == '1' and 'ℹ️' or 'I',
+      Hint = vim.env.NVIM_USE_ICONS == '1' and '󰌵' or 'H',
     }
 
     -- Apply custom icons

@@ -57,7 +57,7 @@ return {
 
     -- set use_icons to true if you have a Nerd Font
     statusline.setup {
-      use_icons = vim.g.have_nerd_font,
+      use_icons = vim.env.NVIM_USE_ICONS == '1',
       content = {
         active = function()
           local mode, mode_hl = MiniStatusline.section_mode { trunc_width = 120 }
@@ -69,10 +69,10 @@ return {
           local diagnostics = MiniStatusline.section_diagnostics {
             trunc_width = 75,
             signs = {
-              ERROR = '%#DiagnosticError#󰅚 ',
-              WARN = '%#DiagnosticWarn#⚠️ ',
-              INFO = '%#DiagnosticInfo#ℹ️ ',
-              HINT = '%#DiagnosticHint#󰌵 ',
+              ERROR = vim.env.NVIM_USE_ICONS == '1' and '%#DiagnosticError#󰅚 ' or '%#DiagnosticError#E',
+              WARN = vim.env.NVIM_USE_ICONS == '1' and '%#DiagnosticWarn#⚠️ ' or '%#DiagnosticWarn#W',
+              INFO = vim.env.NVIM_USE_ICONS == '1' and '%#DiagnosticInfo#ℹ️ ' or '%#DiagnosticInfo#I',
+              HINT = vim.env.NVIM_USE_ICONS == '1' and '%#DiagnosticHint#󰌵 ' or '%#DiagnosticHint#H',
             },
             icon = '',
           }
@@ -86,14 +86,15 @@ return {
             { hl = mode_hl, strings = { mode } },
             create_statusline_separator(mode_hl, 'MiniStatuslineDevinfo', ''),
             { hl = 'MiniStatuslineDevinfo', strings = { git, diff } },
-            -- create_statusline_separator('MiniStatuslineDevinfo', 'DiagnosticHint', ''),
-            { hl = 'DiagnosticHint', strings = { lsp } },
-            { hl = 'DiagnosticHint', strings = { diagnostics } },
-            --create_statusline_separator('DiagnosticHint', 'MiniStatuslineFilename', ''),
+            create_statusline_separator('MiniStatuslineDevinfo', 'MiniStatuslineFilename', ''),
             '%<', -- Mark general truncate point
             { hl = 'MiniStatuslineFilename', strings = { filename } },
             '%=', -- End left alignment
-            --create_statusline_separator('MiniStatuslineFilename', 'MiniStatuslineFileinfo', ''),
+            create_statusline_separator('MiniStatuslineFilename', 'DiagnosticHint', ''),
+            { hl = 'DiagnosticHint', strings = { lsp } },
+            { hl = 'DiagnosticHint', strings = { diagnostics } },
+            --create_statusline_separator('DiagnosticHint', 'MiniStatuslineFilename', ''),
+            create_statusline_separator('DiagnosticHint', 'MiniStatuslineFileinfo', ''),
             { hl = 'MiniStatuslineFileinfo', strings = { fileinfo } },
             create_statusline_separator(mode_hl, 'MiniStatuslineFileinfo', ''),
             { hl = mode_hl, strings = { search, location } },
@@ -113,7 +114,9 @@ return {
     create_separator_style('MiniStatuslineModeReplace', 'MiniStatuslineFileinfo')
     create_separator_style('MiniStatuslineModeCommand', 'MiniStatuslineFileinfo')
     create_separator_style('MiniStatuslineDevinfo', 'DiagnosticHint')
-    create_separator_style('DiagnosticHint', 'MiniStatuslineFilename')
+    create_separator_style('MiniStatuslineDevinfo', 'MiniStatuslineFilename')
+    create_separator_style('DiagnosticHint', 'MiniStatuslineFileinfo')
+    create_separator_style('MiniStatuslineFilename', 'DiagnosticHint')
     create_separator_style('MiniStatuslineFilename', 'MiniStatuslineFileinfo')
 
     -- You can configure sections in the statusline by overriding their
