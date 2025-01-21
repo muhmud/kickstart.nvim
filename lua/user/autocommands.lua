@@ -13,7 +13,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 })
 
 -- Function to find git root directory or fallback to file's directory
-local function get_git_root()
+function Get_git_root()
   -- Get the directory of the current buffer
   local current_file = vim.api.nvim_buf_get_name(0)
   local current_dir = vim.fn.fnamemodify(current_file, ':p:h')
@@ -32,7 +32,7 @@ end
 function Update_tree_root()
   local nvim_tree = require 'nvim-tree'
   local api = require 'nvim-tree.api'
-  local new_root = get_git_root()
+  local new_root = Get_git_root()
   local current_file = vim.api.nvim_buf_get_name(0)
 
   -- Only update if nvim-tree is visible

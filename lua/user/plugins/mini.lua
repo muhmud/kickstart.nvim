@@ -60,6 +60,9 @@ return {
       use_icons = vim.env.NVIM_USE_ICONS == '1',
       content = {
         active = function()
+          if vim.bo.filetype == 'NvimTree' then
+            return Get_git_root()
+          end
           local mode, mode_hl = MiniStatusline.section_mode { trunc_width = 120 }
           local git = MiniStatusline.section_git { trunc_width = 40 }
           local diff = MiniStatusline.section_diff {
