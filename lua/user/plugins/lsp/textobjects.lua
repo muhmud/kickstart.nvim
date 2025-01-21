@@ -35,6 +35,21 @@ return {
             ['<C-Þ>'] = '@parameter.inner', -- C+Alt-Gr+Shift+p
           },
         },
+        select = {
+          enable = true,
+          keymaps = {
+            ['af'] = '@function.outer',
+            ['if'] = '@function.inner',
+            ['aP'] = '@parameter.outer',
+            ['iP'] = '@parameter.inner',
+            ['ac'] = '@conditional.outer',
+            ['ic'] = '@conditional.inner',
+            ['aS'] = '@statement.outer',
+            ['iS'] = '@statement.inner',
+            ['ak'] = '@call.outer',
+            ['ik'] = '@call.inner',
+          },
+        },
       },
     }
   end,
