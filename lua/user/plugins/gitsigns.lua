@@ -12,7 +12,7 @@ return {
     status_formatter = function(status)
       -- Icons for Git changes
       local add_icon = vim.env.NVIM_USE_ICONS == '1' and '➕' or '+'
-      local change_icon = vim.env.NVIM_USE_ICONS == '1' and '' or '~'
+      local change_icon = vim.env.NVIM_USE_ICONS == '1' and ' ' or '~'
       local delete_icon = vim.env.NVIM_USE_ICONS == '1' and '❌' or '-'
       local added = (status.added and status.added > 0) and (add_icon .. status.added) or ''
       local changed = (status.changed and status.changed > 0) and (change_icon .. status.changed) or ''

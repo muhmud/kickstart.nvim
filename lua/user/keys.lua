@@ -66,6 +66,8 @@ local keys = {
     { '<leader>lq', '<cmd>Trouble qflist toggle<cr>', description = '[Q]uickfix' },
     { '<leader>lj', '<cmd>lua vim.diagnostic.goto_next()<cr>', description = 'Next Diagnostic' },
     { '<leader>lk', '<cmd>lua vim.diagnostic.goto_prev()<cr>', description = 'Previous Diagnostic' },
+    { '”', '<cmd>lua vim.diagnostic.goto_next()<cr>', description = 'Next Diagnostic' }, -- Alt-Gr+n
+    { 'µ', '<cmd>lua vim.diagnostic.goto_prev()<cr>', description = 'Previous Diagnostic' }, -- Alt-Gr+m
     { '<leader>gb', '<cmd>Gitsigns toggle_current_line_blame<cr>', description = '[B]lame Line' },
     { '<leader>f', '<cmd>lua require("ranger-nvim").open(true)<CR>', desc = '[F]ile Ranger' },
     { 'gl', '<cmd>Lspsaga show_line_diagnostics<cr>', description = 'Show [L]ine Diagnostics' },
@@ -79,7 +81,6 @@ local keys = {
     { '<M-n>', '<cmd>:MoveLine(1)<cr>', description = 'Move Line [N]ext' },
     { '<M-p>', '<cmd>:MoveLine(-1)<cr>', description = 'Move Line [P]revious' },
     { '“', '<cmd>Telescope buffers<cr>', description = 'List Buffers' }, -- AltGr+B
-    { 'ß', '<cmd>Telescope lsp_dynamic_workspace_symbols<cr>', description = 'List Workspace Symbols' }, -- AltGr+S
   },
   extensions = {
     which_key = {

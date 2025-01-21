@@ -8,6 +8,6 @@ return {
     }
   end,
   keys = {
-    { 's', '<Plug>Lightspeed_omni_s' },
+    { 'S', '<Plug>Lightspeed_omni_s' },
   },
 }
