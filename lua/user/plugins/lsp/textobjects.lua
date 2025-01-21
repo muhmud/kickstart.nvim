@@ -15,6 +15,7 @@ return {
             ['¢'] = '@conditional.outer', -- Alt-Gr+c
             ['ł'] = '@statement.outer', -- Alt-Gr+l
             ['“'] = '@block.outer', -- Alt-Gr+b
+            ['ĸ'] = '@call.outer', -- Alt-Gr+k
           },
           goto_previous_start = {
             ['ª'] = '@function.outer', -- Alt-Gr+Shift-f
@@ -22,6 +23,7 @@ return {
             ['©'] = '@conditional.outer', -- Alt-Gr+Shift+c
             ['Ł'] = '@statement.outer', -- Alt-Gr+Shift+l
             ['‘'] = '@block.outer', -- Alt-Gr+Shift+b
+            ['&'] = '@call.outer', -- Alt-Gr+Shift+k
           },
         },
         swap = {
