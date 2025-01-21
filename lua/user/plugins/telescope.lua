@@ -88,12 +88,21 @@ return {
     local builtin = require 'telescope.builtin'
     vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
     vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
-    vim.keymap.set('n', '<leader>sc', builtin.git_files, { desc = '[S]earch Git Files' })
+    vim.keymap.set('n', '<leader>sc', function()
+      builtin.git_files {
+        cwd = Get_git_root(),
+      }
+    end, { desc = '[S]earch Git Files' })
     vim.keymap.set('n', '<leader>sf', function()
       builtin.find_files {
         cwd = Get_git_root(),
       }
     end, { desc = '[S]earch [F]iles' })
+    vim.keymap.set('n', '<leader>sb', function()
+      builtin.find_files {
+        cwd = vim.env.HOME,
+      }
+    end, { desc = '[S]earch Home Files' })
     vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
     vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
     vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })

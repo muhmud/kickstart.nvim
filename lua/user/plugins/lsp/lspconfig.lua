@@ -163,7 +163,6 @@ return {
       pyright = {},
       rust_analyzer = {},
       shellcheck = {},
-      starlark_rust = {},
       terraformls = {},
       xmlformatter = {},
       yamlfmt = {},
