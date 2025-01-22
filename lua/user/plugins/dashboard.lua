@@ -1,3 +1,9 @@
+-- GUI-specific options and settings
+local newBufferCommand = 'enew'
+if vim.env.NEOVIDE == '1' then
+  newBufferCommand = 'call SwitchNew()'
+end
+
 return {
   'nvimdev/dashboard-nvim',
   event = 'VimEnter',
@@ -25,10 +31,10 @@ return {
         shortcut = {
           {
             icon = ' ',
-            desc = 'Config',
+            desc = 'New File',
             group = 'DashboardShortCut',
-            action = 'e ~/.config/nvim/init.lua',
-            key = 'c',
+            action = newBufferCommand,
+            key = 'n',
           },
           {
             icon = ' ',
@@ -43,6 +49,13 @@ return {
             group = 'DashboardShortCut',
             action = 'Telescope find_files',
             key = 'f',
+          },
+          {
+            icon = ' ',
+            desc = 'Config',
+            group = 'DashboardShortCut',
+            action = 'e ~/.config/nvim/init.lua',
+            key = 'c',
           },
         },
       },

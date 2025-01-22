@@ -74,6 +74,7 @@ return {
         live_grep = ivyTheme,
         git_files = ivyTheme,
         help_tags = ivyTheme,
+        keymaps = ivyTheme,
       },
       extensions = {
         ['ui-select'] = {
