@@ -84,6 +84,7 @@ local keys = {
     { '<M-b>', '<cmd>:MoveWord(-1)<cr>', description = 'Move Word [B]ack' },
     { '<M-n>', '<cmd>:MoveLine(1)<cr>', description = 'Move Line [N]ext' },
     { '<M-p>', '<cmd>:MoveLine(-1)<cr>', description = 'Move Line [P]revious' },
+    { '<M-z>', '<cmd>:MaximizerToggle!<cr>', description = '[Z]oom Split' },
   },
   extensions = {
     which_key = {

@@ -25,7 +25,6 @@ require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
   'tpope/vim-repeat', -- Makes . repeat groups of commands properly
-  'tpope/vim-surround', -- Manage surrounding characters easily
   'tpope/vim-commentary', -- Better commenting out
   'tpope/vim-speeddating', -- Makes C-A / C-X increment/decrement work with dates
   'tpope/vim-fugitive', -- Git plugin
@@ -33,6 +32,7 @@ require('lazy').setup({
   'bkad/CamelCaseMotion', -- Enables camel case motion
   'gcmt/wildfire.vim', -- Expand selection
   'norcalli/nvim-colorizer.lua', -- Shows colours for encodings
+  'szw/vim-maximizer',
 
   require 'user.plugins.themes.material',
   { import = 'user.plugins' },

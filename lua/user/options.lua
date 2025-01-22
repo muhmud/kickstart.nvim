@@ -90,6 +90,9 @@ end
 -- Wildfire match objects
 vim.g.wildfire_objects = { 'i>', 'i"', "i'", 'i)', 'i]', 'i}', 'ip', 'it' }
 
+-- No vim-maximizer keymap
+vim.g.maximizer_set_mapping_with_bang = 0
+
 vim.cmd [[
   set runtimepath+=~/.config/nvim/snippets
 ]]
