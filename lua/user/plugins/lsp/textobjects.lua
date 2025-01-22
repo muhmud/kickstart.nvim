@@ -16,6 +16,7 @@ return {
             ['ł'] = '@statement.outer', -- Alt-Gr+l
             ['“'] = '@block.outer', -- Alt-Gr+b
             ['ĸ'] = '@call.outer', -- Alt-Gr+k
+            ['ø'] = '@comment.outer', -- Alt-Gr+o
           },
           goto_previous_start = {
             ['ª'] = '@function.outer', -- Alt-Gr+Shift-f
@@ -24,6 +25,7 @@ return {
             ['Ł'] = '@statement.outer', -- Alt-Gr+Shift+l
             ['‘'] = '@block.outer', -- Alt-Gr+Shift+b
             ['&'] = '@call.outer', -- Alt-Gr+Shift+k
+            ['Ø'] = '@comment.outer', -- Alt-Gr+Shift+o
           },
         },
         swap = {

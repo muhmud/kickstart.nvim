@@ -87,8 +87,9 @@ if vim.env.NEOVIDE == '1' then
   vim.opt.guifont = 'Iosevka:h14'
 end
 
-vim.cmd [[
-  let g:wildfire_objects = ["i>", "i'", 'i"', "i)", "i]", "i}", "ip", "it"]
+-- Wildfire match objects
+vim.g.wildfire_objects = { 'i>', 'i"', "i'", 'i)', 'i]', 'i}', 'ip', 'it' }
 
+vim.cmd [[
   set runtimepath+=~/.config/nvim/snippets
 ]]
