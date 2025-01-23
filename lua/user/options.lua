@@ -93,6 +93,9 @@ vim.g.wildfire_objects = { 'i>', 'i"', "i'", 'i)', 'i]', 'i}', 'ip', 'it' }
 -- No vim-maximizer keymap
 vim.g.maximizer_set_mapping_with_bang = 0
 
+-- Enable QSH key mappings
+vim.g.qsh_enable_key_mappings = 1
+
 vim.cmd [[
   set runtimepath+=~/.config/nvim/snippets
 ]]

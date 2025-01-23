@@ -140,7 +140,7 @@ return {
       dockerls = {},
       goimports = {},
       gopls = {},
-      htmx = {},
+      -- htmx = {},
       jsonls = {},
       lemminx = {},
       lua_ls = {

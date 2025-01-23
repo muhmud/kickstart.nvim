@@ -30,7 +30,7 @@ return {
         },
         shortcut = {
           {
-            icon = ' ',
+            icon = ' ',
             desc = 'New File',
             group = 'DashboardShortCut',
             action = newBufferCommand,
@@ -44,7 +44,7 @@ return {
             key = 'r',
           },
           {
-            icon = '󰮗 ',
+            icon = ' ',
             desc = 'Find Files',
             group = 'DashboardShortCut',
             action = 'Telescope find_files',

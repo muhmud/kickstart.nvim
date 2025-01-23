@@ -1,3 +1,8 @@
+local builtin = require 'telescope.builtin'
+local ivyTheme = require('telescope.themes').get_ivy {
+  previewer = false,
+}
+
 return {
   -- Fuzzy Finder (files, lsp, etc)
   'nvim-telescope/telescope.nvim',
@@ -42,15 +47,6 @@ return {
     -- This opens a window that shows you all of the keymaps for the current
     -- Telescope picker. This is really useful to discover what Telescope can
     -- do as well as how to actually do it!
-    local dropdownTheme = require('telescope.themes').get_dropdown {
-      layout_config = {
-        width = 0.8, -- Absolute width in columns
-        height = 0.6, -- Absolute height in rows
-      },
-    }
-    local ivyTheme = require('telescope.themes').get_ivy {
-      previewer = false,
-    }
 
     -- [[ Configure Telescope ]]
     -- See `:help telescope` and `:help telescope.setup()`
@@ -89,11 +85,9 @@ return {
     pcall(require('telescope').load_extension, 'ui-select')
 
     -- See `:help telescope.builtin`
-    local builtin = require 'telescope.builtin'
     vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
     vim.keymap.set('n', 'ħ', builtin.help_tags, { desc = 'Search Help' }) -- Alt-Gr+h
     vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
-    vim.keymap.set('n', '<leader>sc', builtin.git_files, { desc = '[S]earch Git Files' })
     vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
     vim.keymap.set('n', '<leader>sb', function()
       builtin.find_files {
@@ -120,7 +114,11 @@ return {
     vim.keymap.set('n', '<leader>s.', builtin.resume, { desc = '[S]earch [R]esume' })
     vim.keymap.set('n', '<leader>sr', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
     -- Alt-Gr+r
-    vim.keymap.set('n', '¶', builtin.oldfiles, { desc = 'Search Recent Files' })
+    vim.keymap.set('n', '¶', function()
+      builtin.oldfiles {
+        prompt_title = 'Recent Files',
+      }
+    end, { desc = 'Search Recent Files' })
 
     -- Slightly advanced example of overriding default behavior and theme
     vim.keymap.set('n', '<leader>/', function()
@@ -141,8 +139,22 @@ return {
     end, { desc = '[S]earch [/] Open Files' })
 
     -- Shortcut for searching your Neovim configuration files
+    vim.keymap.set('n', '<leader>sc', function()
+      builtin.find_files {
+        cwd = vim.fn.stdpath 'config',
+        prompt_title = 'Neovim Config',
+      }
+    end, { desc = '[S]earch Neovim [C]onfig Files' })
+
+    -- Search notes
     vim.keymap.set('n', '<leader>sn', function()
-      builtin.find_files { cwd = vim.fn.stdpath 'config' }
-    end, { desc = '[S]earch [N]eovim Files' })
+      builtin.find_files {
+        cwd = tostring(require('neorg').modules.get_module('core.dirman').get_current_workspace()[2]),
+        prompt_title = 'Neorg Notes',
+      }
+    end)
   end,
+  keys = {
+    { '<leader>sh', builtin.help_tags, desc = '[S]earch [H]elp' },
+  },
 }
