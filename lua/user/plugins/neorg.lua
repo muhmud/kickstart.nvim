@@ -5,6 +5,7 @@ return {
   dependencies = {
     'nvim-neorg/lua-utils.nvim',
     'pysan3/pathlib.nvim',
+    'nvim-neotest/nvim-nio',
   },
   config = function()
     require('neorg').setup {
