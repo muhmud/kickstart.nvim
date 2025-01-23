@@ -4,6 +4,7 @@ return {
   version = '*', -- Pin Neorg to the latest stable release
   dependencies = {
     'nvim-neorg/lua-utils.nvim',
+    'pysan3/pathlib.nvim',
   },
   config = function()
     require('neorg').setup {
