@@ -1,8 +1,3 @@
-local builtin = require 'telescope.builtin'
-local ivyTheme = require('telescope.themes').get_ivy {
-  previewer = false,
-}
-
 return {
   -- Fuzzy Finder (files, lsp, etc)
   'nvim-telescope/telescope.nvim',
@@ -47,6 +42,10 @@ return {
     -- This opens a window that shows you all of the keymaps for the current
     -- Telescope picker. This is really useful to discover what Telescope can
     -- do as well as how to actually do it!
+    local builtin = require 'telescope.builtin'
+    local ivyTheme = require('telescope.themes').get_ivy {
+      previewer = false,
+    }
 
     -- [[ Configure Telescope ]]
     -- See `:help telescope` and `:help telescope.setup()`
@@ -155,6 +154,6 @@ return {
     end)
   end,
   keys = {
-    { '<leader>sh', builtin.help_tags, desc = '[S]earch [H]elp' },
+    { '<leader>sh', require('telescope.builtin').help_tags, desc = '[S]earch [H]elp' },
   },
 }
