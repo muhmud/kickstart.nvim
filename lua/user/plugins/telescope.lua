@@ -154,6 +154,6 @@ return {
     end)
   end,
   keys = {
-    { '<leader>sh', require('telescope.builtin').help_tags, desc = '[S]earch [H]elp' },
+    { '<leader>sh', '<cmd>lua require("telescope.builtin").help_tags()<cr>', desc = '[S]earch [H]elp' },
   },
 }
