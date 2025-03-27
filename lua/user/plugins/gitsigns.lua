@@ -3,7 +3,7 @@ return {
   'lewis6991/gitsigns.nvim',
   opts = {
     signs = {
-      add = { text = vim.env.NVIM_USE_ICONS == '1' and '➕' or '+' },
+      add = { text = vim.env.NVIM_USE_ICONS == '1' and '➕︎' or '+' },
       change = { text = vim.env.NVIM_USE_ICONS == '1' and '' or '~' },
       delete = { text = vim.env.NVIM_USE_ICONS == '1' and '❌' or '-' },
       topdelete = { text = vim.env.NVIM_USE_ICONS == '1' and '' or 'x' },
