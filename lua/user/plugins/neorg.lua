@@ -20,6 +20,7 @@ return {
           config = {
             workspaces = {
               main = '~/notes', -- Format: <name_of_workspace> = <path_to_workspace_root>
+              street = '~/code/github/thestreetapp/notes',
             },
             default_workspace = 'main',
             index = 'index.norg', -- The name of the main (root) .norg file

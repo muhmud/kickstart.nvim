@@ -28,6 +28,7 @@ require('lazy').setup({
   'tpope/vim-commentary', -- Better commenting out
   'tpope/vim-speeddating', -- Makes C-A / C-X increment/decrement work with dates
   'tpope/vim-fugitive', -- Git plugin
+  'andymass/vim-matchup',
   'ntpeters/vim-better-whitespace', -- Clearly highlights trailing whitespace
   'bkad/CamelCaseMotion', -- Enables camel case motion
   'gcmt/wildfire.vim', -- Expand selection

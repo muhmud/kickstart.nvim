@@ -36,6 +36,24 @@ return {
       },
     }
 
+    require('mini.files').setup {
+      mappings = {
+        close = 'q',
+        go_in = 'l',
+        go_in_plus = '<Tab>',
+        go_out = 'h',
+        go_out_plus = 'H',
+        mark_goto = "'",
+        mark_set = 'm',
+        reset = '<BS>',
+        reveal_cwd = '@',
+        show_help = 'g?',
+        synchronize = '=',
+        trim_left = '<',
+        trim_right = '>',
+      },
+    }
+
     -- Simple and easy statusline.
     --  You could remove this setup call if you don't like it,
     --  and try some other statusline plugin
@@ -104,18 +122,22 @@ return {
           local location = MiniStatusline.section_location { trunc_width = 75 }
           local search = MiniStatusline.section_searchcount { trunc_width = 75 }
 
+          local sep1Style = 'MiniStatuslineDevinfo'
+          local sep2Style = 'MiniStatuslineFilename'
+          if #git == 0 and #diff == 0 then
+            sep1Style = 'MiniStatuslineFilename'
+          end
           return MiniStatusline.combine_groups {
             { hl = mode_hl, strings = { mode } },
-            create_statusline_separator(mode_hl, 'MiniStatuslineDevinfo', ''),
+            create_statusline_separator(mode_hl, sep1Style, ''),
             { hl = 'MiniStatuslineDevinfo', strings = { git, diff } },
-            create_statusline_separator('MiniStatuslineDevinfo', 'MiniStatuslineFilename', ''),
+            sep1Style ~= sep2Style and create_statusline_separator(sep1Style, sep2Style, '') or '',
             '%<', -- Mark general truncate point
             { hl = 'MiniStatuslineFilename', strings = { filename } },
             '%=', -- End left alignment
             create_statusline_separator('MiniStatuslineFilename', 'DiagnosticHint', ''),
             { hl = 'DiagnosticHint', strings = { lsp } },
             { hl = 'DiagnosticHint', strings = { diagnostics } },
-            --create_statusline_separator('DiagnosticHint', 'MiniStatuslineFilename', ''),
             create_statusline_separator('DiagnosticHint', 'MiniStatuslineFileinfo', ''),
             { hl = 'MiniStatuslineFileinfo', strings = { fileinfo } },
             create_statusline_separator(mode_hl, 'MiniStatuslineFileinfo', ''),
@@ -130,6 +152,11 @@ return {
     create_separator_style('MiniStatuslineModeInsert', 'MiniStatuslineDevinfo')
     create_separator_style('MiniStatuslineModeReplace', 'MiniStatuslineDevinfo')
     create_separator_style('MiniStatuslineModeCommand', 'MiniStatuslineDevinfo')
+    create_separator_style('MiniStatuslineModeNormal', 'MiniStatuslineFilename')
+    create_separator_style('MiniStatuslineModeVisual', 'MiniStatuslineFilename')
+    create_separator_style('MiniStatuslineModeInsert', 'MiniStatuslineFilename')
+    create_separator_style('MiniStatuslineModeReplace', 'MiniStatuslineFilename')
+    create_separator_style('MiniStatuslineModeCommand', 'MiniStatuslineFilename')
     create_separator_style('MiniStatuslineModeNormal', 'MiniStatuslineFileinfo')
     create_separator_style('MiniStatuslineModeVisual', 'MiniStatuslineFileinfo')
     create_separator_style('MiniStatuslineModeInsert', 'MiniStatuslineFileinfo')

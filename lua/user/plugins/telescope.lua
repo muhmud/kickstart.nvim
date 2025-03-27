@@ -46,6 +46,12 @@ return {
     local ivyTheme = require('telescope.themes').get_ivy {
       previewer = false,
     }
+    local ivyThemeWithPreview = require('telescope.themes').get_ivy {
+      previewer = true,
+    }
+
+    -- Trouble
+    local open_with_trouble = require('trouble.sources.telescope').open
 
     -- [[ Configure Telescope ]]
     -- See `:help telescope` and `:help telescope.setup()`
@@ -64,10 +70,10 @@ return {
       --   },
       -- },
       pickers = {
-        find_files = ivyTheme,
-        oldfiles = ivyTheme,
+        find_files = ivyThemeWithPreview,
+        oldfiles = ivyThemeWithPreview,
         live_grep = ivyTheme,
-        git_files = ivyTheme,
+        git_files = ivyThemeWithPreview,
         help_tags = ivyTheme,
         keymaps = ivyTheme,
       },
@@ -76,6 +82,12 @@ return {
           require('telescope.themes').get_dropdown(),
         },
         fzf = {},
+      },
+      defaults = {
+        mappings = {
+          i = { ['<C-q>'] = open_with_trouble },
+          n = { ['<C-q>'] = open_with_trouble },
+        },
       },
     }
 

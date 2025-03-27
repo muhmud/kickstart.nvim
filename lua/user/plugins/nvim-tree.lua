@@ -106,6 +106,10 @@ return {
           enable = false,
         },
       },
+      diagnostics = {
+        enable = true,
+        show_on_dirs = true,
+      },
       git = {
         enable = true,
       },

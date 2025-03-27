@@ -69,11 +69,13 @@ local keys = {
     { '<leader>ni', '<cmd>:Neorg index<cr>', description = '[N]eorg [I]ndex' },
     { '<leader>nn', '<Plug>(neorg.dirman.new-note)', description = '[N]eorg New [N]ote' },
     { '<leader>nr', '<cmd>:Neorg return<cr>', description = '[N]eorg [R]eturn' },
-    { '•', '<cmd>lua vim.diagnostic.goto_next()<cr>', description = 'Next Diagnostic' }, -- Alt-Gr+<
-    { '·', '<cmd>lua vim.diagnostic.goto_prev()<cr>', description = 'Previous Diagnostic' }, -- Alt-Gr+>
-    { '”', '<cmd>cnext<cr>', description = 'Next Quickfix Item' }, -- Alt-Gr+n
-    { '’', '<cmd>cprev<cr>', description = 'Previous Quickfix Item' }, -- Alt-Gr+Shift+n
-    { '<C-”>', '<cmd>cclose<cr>', description = 'Close Quickfix Window' }, -- Ctrl+Alt-Gr+m
+    { '•', '<cmd>lua vim.diagnostic.goto_prev()<cr>', description = 'Previous Diagnostic' }, -- Alt-Gr+<
+    { '·', '<cmd>lua vim.diagnostic.goto_next()<cr>', description = 'Next Diagnostic' }, -- Alt-Gr+>
+    { '”', '<cmd>lua require("trouble").next();require("trouble").jump()<cr>', description = 'Next Trouble Item' }, -- Alt-Gr+n
+    { '’', '<cmd>lua require("trouble").prev();require("trouble").jump()<cr>', description = 'Previous Trouble Item' }, -- Alt-Gr+Shift+n
+    { 'µ', '<cmd>lua require("nvim-tree.api").node.navigate.sibling.next();require("nvim-tree.api").node.open.edit()<cr>', description = 'Next File' }, -- Alt-Gr+m
+    { 'º', '<cmd>lua require("nvim-tree.api").node.navigate.sibling.prev();require("nvim-tree.api").node.open.edit()<cr>', description = 'Previous File' }, -- Alt-Gr+Shift+m
+    { '<C-”>', '<cmd>lua require("trouble").close()<cr>', description = 'Close Trouble Window' }, -- Ctrl+Alt-Gr+m
     { '\\z', '%', description = 'Goto Matching Pair' },
     { '<leader>gb', '<cmd>Gitsigns toggle_current_line_blame<cr>', description = '[B]lame Line' },
     { '<leader>f', '<cmd>lua require("ranger-nvim").open(true)<CR>', desc = '[F]ile Ranger' },
@@ -88,6 +90,7 @@ local keys = {
     { '<M-n>', '<cmd>:MoveLine(1)<cr>', description = 'Move Line [N]ext' },
     { '<M-S-n>', '<cmd>:MoveLine(-1)<cr>', description = 'Move Line [P]revious' },
     { '<M-z>', '<cmd>:MaximizerToggle!<cr>', description = '[Z]oom Split' },
+    { '»', '<cmd>:lua MiniFiles.open()<cr>', description = 'Mini [F]iles' }, -- Alt-Gr+i
   },
   extensions = {
     which_key = {
@@ -141,6 +144,8 @@ vim.keymap.set('c', '<S-Insert>', '<C-R>+', { desc = 'Paste' })
 vim.keymap.set('v', '0', '<cmd>:call SmartHome()<cr>', { desc = 'Smart Home' })
 vim.keymap.set('v', 'y', 'ygv<esc>', { desc = 'Yank' })
 vim.keymap.set('v', '=', '=gv', { desc = 'Indent' })
+vim.keymap.set('v', '>', '>gv', { desc = 'Indent Right' })
+vim.keymap.set('v', '<', '<gv', { desc = 'Indent Left' })
 vim.keymap.set('v', 'n', ":'<,'>MoveBlock(1)<cr>", { desc = 'Move [N]ext' })
 vim.keymap.set('v', 'p', ":'<,'>MoveBlock(-1)<cr>", { desc = 'Move [P]revious' })
 
