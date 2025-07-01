@@ -47,6 +47,9 @@ return {
     luasnip.config.setup {}
 
     cmp.setup {
+      experimental = {
+        ghost_text = true,
+      },
       snippet = {
         expand = function(args)
           luasnip.lsp_expand(args.body)
@@ -84,6 +87,7 @@ return {
         --  This will auto-import if your LSP supports it.
         --  This will expand snippets if the LSP sent a snippet.
         ['<C-y>'] = cmp.mapping.confirm { select = true },
+        ['<Tab>'] = cmp.mapping.confirm { select = true },
         ['<Enter>'] = cmp.mapping.confirm { select = true },
 
         -- If you prefer more traditional completion keymaps,
@@ -96,6 +100,9 @@ return {
         --  Generally you don't need this, because nvim-cmp will display
         --  completions whenever it has completion options available.
         ['<C-Space>'] = cmp.mapping.complete {},
+
+        ['<C-c>'] = cmp.mapping.close(),
+        ['<M-Space>'] = cmp.mapping.close(),
 
         -- Think of <c-l> as moving to the right of your snippet expansion.
         --  So if you have a snippet that's like:

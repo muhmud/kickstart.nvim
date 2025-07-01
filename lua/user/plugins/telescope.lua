@@ -19,6 +19,7 @@ return {
       end,
     },
     { 'nvim-telescope/telescope-ui-select.nvim' },
+    { 'olimorris/codecompanion.nvim' },
 
     -- Useful for getting pretty icons, but requires a Nerd Font.
     { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
@@ -163,6 +164,10 @@ return {
         cwd = tostring(require('neorg').modules.get_module('core.dirman').get_current_workspace()[2]),
         prompt_title = 'Neorg Notes',
       }
+    end)
+
+    vim.keymap.set('n', '<leader>cg', function()
+      vim.cmd [[ Telescope codecompanion theme=ivy ]]
     end)
   end,
   keys = {

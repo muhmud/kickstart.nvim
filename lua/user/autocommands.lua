@@ -36,8 +36,7 @@ function Update_tree_root()
   local current_file = vim.api.nvim_buf_get_name(0)
 
   -- Only update if nvim-tree is visible
-  local view = require 'nvim-tree.view'
-  if view.is_visible() then
+  if api.tree.is_visible() then
     -- Store the current window
     local current_win = vim.api.nvim_get_current_win()
 

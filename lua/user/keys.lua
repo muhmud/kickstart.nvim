@@ -50,7 +50,7 @@ local keys = {
     { '<leader>bx', '<cmd>:BufferLineCloseLeft<CR>:BufferLineCloseRight<cr>', description = 'Close All E[X]cept Current' },
     { '<leader>bl', '<cmd>Telescope buffers<cr>', description = 'Buffer [L]ist' },
     { '<leader>bn', newBufferCommand, description = '[N]ew Buffer' },
-    { '<leader>c', '<cmd>:bdelete<cr>', description = '[C]lose Buffer' },
+    { '<leader>bc', '<cmd>:bdelete<cr>', description = '[C]lose Buffer' },
     { '<leader>j', '<cmd>:BufferLineCycleNext<cr>', description = 'Next Buffer' },
     { '<leader>k', '<cmd>:BufferLineCyclePrev<cr>', description = 'Previous Buffer' },
     { '<leader>;', '<cmd>:Dashboard<cr>', description = 'Dashboard' },
@@ -75,7 +75,7 @@ local keys = {
     { '’', '<cmd>lua require("trouble").prev();require("trouble").jump()<cr>', description = 'Previous Trouble Item' }, -- Alt-Gr+Shift+n
     { 'µ', '<cmd>lua require("nvim-tree.api").node.navigate.sibling.next();require("nvim-tree.api").node.open.edit()<cr>', description = 'Next File' }, -- Alt-Gr+m
     { 'º', '<cmd>lua require("nvim-tree.api").node.navigate.sibling.prev();require("nvim-tree.api").node.open.edit()<cr>', description = 'Previous File' }, -- Alt-Gr+Shift+m
-    { '<C-”>', '<cmd>lua require("trouble").close()<cr>', description = 'Close Trouble Window' }, -- Ctrl+Alt-Gr+m
+    { '<C-”>', '<cmd>lua require("trouble").close()<cr>', description = 'Close Trouble Window' }, -- Ctrl+Alt-Gr+n
     { '\\z', '%', description = 'Goto Matching Pair' },
     { '<leader>gb', '<cmd>Gitsigns toggle_current_line_blame<cr>', description = '[B]lame Line' },
     { '<leader>f', '<cmd>lua require("ranger-nvim").open(true)<CR>', desc = '[F]ile Ranger' },
@@ -90,7 +90,11 @@ local keys = {
     { '<M-n>', '<cmd>:MoveLine(1)<cr>', description = 'Move Line [N]ext' },
     { '<M-S-n>', '<cmd>:MoveLine(-1)<cr>', description = 'Move Line [P]revious' },
     { '<M-z>', '<cmd>:MaximizerToggle!<cr>', description = '[Z]oom Split' },
-    { '»', '<cmd>:lua MiniFiles.open()<cr>', description = 'Mini [F]iles' }, -- Alt-Gr+i
+    { '„', '<cmd>:lua MiniFiles.open()<cr>', description = 'Mini [F]iles' }, -- Alt-Gr+v
+    { '<leader>ct', '<cmd>:CodeCompanionChat toggle<cr>', description = 'Toggle CodeCompanion Chat' },
+    { '<leader>cc', '<cmd>:CodeCompanion<cr>', description = 'CodeCompanion Assistant' },
+    { '<leader>ca', '<cmd>:Copilot auth<cr>', description = 'Copilot Auth' },
+    { '<C-n>', '<plug>(matchup-%)', description = 'Matchup' },
   },
   extensions = {
     which_key = {
@@ -153,6 +157,8 @@ vim.keymap.set('v', '<C-=>', '<cmd>:call ZoomIn()<CR>', { desc = 'Zoom In' })
 vim.keymap.set('v', '<C-->', '<cmd>:call ZoomOut()<CR>', { desc = 'Zoom Out' })
 vim.keymap.set('v', '<C-+>', '<cmd>:call ZoomReset()<CR>', { desc = 'Zoom Reset' })
 
+vim.keymap.set('v', '<C-n>', '<plug>(matchup-%)', { desc = 'Matchup' })
+
 vim.cmd [[
   nmap <silent> w <Plug>CamelCaseMotion_w
   nmap <silent> b <Plug>CamelCaseMotion_b
@@ -166,3 +172,6 @@ vim.cmd [[
   omap <silent> ie <Plug>CamelCaseMotion_ie
   xmap <silent> ie <Plug>CamelCaseMotion_ie
 ]]
+
+vim.cmd [[cab cc CodeCompanion]]
+vim.keymap.set('v', '<leader>c', ":'<,'>CodeCompanion<cr>", { desc = 'Code CodeCompanion' })

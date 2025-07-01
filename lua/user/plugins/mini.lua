@@ -16,6 +16,8 @@ return {
       n_lines = 500,
     }
 
+    require('mini.pick').setup()
+
     -- Add/delete/replace surroundings (brackets, quotes, etc.)
     --
     -- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
@@ -59,6 +61,7 @@ return {
     --  and try some other statusline plugin
     local statusline = require 'mini.statusline'
     vim.api.nvim_set_hl(0, 'MiniStatuslineFilename', { fg = '#abb2bf', bg = '#2f2d3d' })
+    vim.api.nvim_set_hl(0, 'MiniStatuslineLsp', { fg = '#abb2bf', bg = '#0a192f' })
 
     local function create_style(name, hl_name)
       local hl = vim.api.nvim_get_hl(0, { name = hl_name, link = false })
@@ -129,18 +132,18 @@ return {
           end
           return MiniStatusline.combine_groups {
             { hl = mode_hl, strings = { mode } },
-            create_statusline_separator(mode_hl, sep1Style, ''),
+            -- create_statusline_separator(mode_hl, sep1Style, ''),
             { hl = 'MiniStatuslineDevinfo', strings = { git, diff } },
-            sep1Style ~= sep2Style and create_statusline_separator(sep1Style, sep2Style, '') or '',
+            -- sep1Style ~= sep2Style and create_statusline_separator(sep1Style, sep2Style, '') or '',
             '%<', -- Mark general truncate point
             { hl = 'MiniStatuslineFilename', strings = { filename } },
             '%=', -- End left alignment
-            create_statusline_separator('MiniStatuslineFilename', 'DiagnosticHint', ''),
-            { hl = 'DiagnosticHint', strings = { lsp } },
-            { hl = 'DiagnosticHint', strings = { diagnostics } },
-            create_statusline_separator('DiagnosticHint', 'MiniStatuslineFileinfo', ''),
-            { hl = 'MiniStatuslineFileinfo', strings = { fileinfo } },
-            create_statusline_separator(mode_hl, 'MiniStatuslineFileinfo', ''),
+            -- create_statusline_separator('MiniStatuslineFilename', 'MiniStatuslineFileinfo', ''),
+            { hl = 'MiniStatuslineFileinfo', strings = { lsp } },
+            { hl = 'MiniStatuslineFileinfo', strings = { diagnostics } },
+            -- create_statusline_separator('DiagnosticHint', 'MiniStatuslineFileinfo', ''),
+            { hl = 'MiniStatuslineLsp', strings = { fileinfo } },
+            -- create_statusline_separator(mode_hl, 'MiniStatuslineFileinfo', ''),
             { hl = mode_hl, strings = { search, location } },
           }
         end,

@@ -51,6 +51,7 @@ return {
       { '<leader>b', group = '[B]uffer' },
       { '<leader>s', group = '[S]earch' },
       { '<leader>g', group = '[G]it' },
+      { '<leader>c', group = '[C]ode Companion' },
     },
   },
 }

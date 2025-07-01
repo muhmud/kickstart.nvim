@@ -82,7 +82,7 @@ vim.g.better_whitespace_filetypes_blacklist = { 'alpha', 'dashboard', 'diff', 'g
 -- GUI-specific options and settings
 if vim.env.NEOVIDE == '1' then
   vim.g.neovide_cursor_vfx_mode = 'railgun'
-  vim.g.neovide_transparency = 0.95
+  vim.g.neovide_opacity = 0.95
   vim.g.neovide_antialiasing = true
   --vim.opt.guifont = 'Victor Mono:h13'
   vim.opt.guifont = 'Iosevka:h14'
